@@ -4,7 +4,7 @@ package com.itheima.health.constant;
  * 消息常量
  */
 public interface MessageConstant {
-    static final String CHECKITEM_IN_USE = "被使用了则不能删除";
+    static final String CHECKITEM_IN_USE = "被使用了不能删除";
     static final String DELETE_CHECKITEM_FAIL = "删除检查项失败";
     static final String DELETE_CHECKITEM_SUCCESS = "删除检查项成功";
     static final String ADD_CHECKITEM_SUCCESS = "新增检查项成功";
