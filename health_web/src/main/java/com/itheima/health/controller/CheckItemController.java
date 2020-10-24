@@ -73,6 +73,7 @@ public class CheckItemController {
      */
     @GetMapping("/findById")
     public Result findById(int id){
+        //
       CheckItem checkItem = checkItemService.findById(id);
       return new Result(true,MessageConstant.QUERY_CHECKITEM_SUCCESS,checkItem);
     }
