@@ -1,7 +1,11 @@
 package com.itheima.health.dao;
 
+import com.github.pagehelper.Page;
+import com.itheima.health.exception.HealthException;
 import com.itheima.health.pojo.CheckGroup;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CheckGroupDao {
     /**
@@ -16,5 +20,19 @@ public interface CheckGroupDao {
      * @param checkitemId
      * @param checkitemId
      */
-    void addCheckGroupCheckItem(@Param("checkGroupId") Integer checkGroupId,@Param("checkitemId") Integer checkitemId);
+    void addCheckGroupCheckItem(@Param("checkGroupId") Integer checkGroupId,@Param("checkitemId") Integer checkitemId) ;
+
+    CheckGroup findById(int checkGroupId);
+
+    List<Integer> findCheckItemIdsByCheckGroupId(int checkGroupId);
+
+    void update(CheckGroup checkGroup);
+
+    void deleteCheckGroupCheckItem(Integer id);
+
+    Page<CheckGroup> findByCondition(String queryString);
+
+    int findSetmealCountByCheckGroupId(int id);
+
+    void deleteById(int id);
 }
