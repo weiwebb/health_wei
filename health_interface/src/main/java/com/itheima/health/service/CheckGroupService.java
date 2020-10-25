@@ -44,4 +44,7 @@ public interface CheckGroupService {
     PageResult<CheckGroup> findPage(QueryPageBean queryPageBean);
 
     void deleteById(int id) throws HealthException;
+
+    List<CheckGroup> findAll();
+
 }
