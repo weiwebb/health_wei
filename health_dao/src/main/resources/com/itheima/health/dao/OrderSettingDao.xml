@@ -23,7 +23,7 @@
             resultType="com.itheima.health.pojo.OrderSetting">
     select * from t_ordersetting where orderDate between #{dateBegin} and #{dateEnd}
 </select>
-    <select id="editNumberByOrderDate" parameterType="com.itheima.health.pojo.OrderSetting">
-        select * From t_orderSetting where orderDate = #{orderDate}
-    </select>
+    <update id="editNumberByOrderDate" parameterType="com.itheima.health.pojo.OrderSetting">
+        update  t_orderSetting set number= #{number} where orderDate = #{orderDate}
+    </update>
 </mapper>
