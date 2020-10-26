@@ -62,4 +62,24 @@ public class OrderSettingServiceImpl implements OrderSettingService {
         }
         return data;
     }
+
+    @Override
+    public void editNumberByDate(OrderSetting orderSetting) throws HealthException{
+        //通过日期判断预约设置是否存在？
+        OrderSetting os = orderSettingDao.findByOrderDate(orderSetting.getOrderDate());
+        //- 存在：
+        if(null != os) {
+            // 判断已经预约的人数是否大于要更新的最大可预约人数， reverations > 传进来的number数量，则不能更新，要报错
+            if(orderSetting.getNumber() < os.getReservations()){
+                // 已经预约的人数高于最大预约人数，不允许
+                throw new HealthException("最大预约人数不能小已预约人数！");
+            }
+            // reverations <= 传进来的number数量，则要更新最大可预约数量
+            orderSettingDao.editNumberByOrderDate(orderSetting);
+        }else {
+            //- 不存在：
+            //  - 添加预约设置信息
+            orderSettingDao.add(orderSetting);
+        }
+    }
 }

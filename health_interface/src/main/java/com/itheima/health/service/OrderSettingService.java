@@ -1,5 +1,6 @@
 package com.itheima.health.service;
 
+import com.itheima.health.exception.HealthException;
 import com.itheima.health.pojo.OrderSetting;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface OrderSettingService {
      * @return
      */
     List<Map> getOrderSettingByMonth(String month);
+
+    /**
+     *  基于日历的预约设置
+     * @param orderSetting
+     */
+    void editNumberByDate(OrderSetting orderSetting) throws HealthException;
 }
