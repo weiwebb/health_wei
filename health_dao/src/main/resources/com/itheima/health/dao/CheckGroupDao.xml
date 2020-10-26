@@ -61,6 +61,6 @@
     </delete>
 
     <select id="findAll" resultType="com.itheima.health.pojo.CheckGroup">
-        select *from t_checkgroup
+        select * from t_checkgroup
     </select>
 </mapper>

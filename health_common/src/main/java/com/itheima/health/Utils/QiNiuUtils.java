@@ -1,4 +1,4 @@
-package com.itheima.health.utils;
+package com.itheima.health.Utils;
 
 import com.google.gson.Gson;
 import com.itheima.health.constant.MessageConstant;
@@ -19,12 +19,12 @@ import java.util.List;
 public class QiNiuUtils {
 
     private static final String ACCESSKEY = "Mp61y33x0IVeL9UO40inwgTt3KMsiXQKKSTQzLP1";
-    private static final String SECRETKEY = "Mp61y33x0IVeL9UO40inwgTt3KMsiXQKKSTQzLP1";
+    private static final String SECRETKEY = "GXDJ6e1o4h7x2LNjmV_B1d-SIsJJzeL0K8zd9VQq";
     private static final String BUCKET = "wei007";
-    public static final String DOMAIN= "http://qiqhteijk.hn-bkt.clouddn.com//";
+    public static final String DOMAIN= "http://qiqhteijk.hn-bkt.clouddn.com/";
 
     public static void main(String[] args) {
-        //uploadFile("C:\\Users\\Eric\\Desktop\\file\\timg.jpg","dd2.jpg");
+       // uploadFile("C:\\Users\\86135\\Pictures\\Saved Pictures\\2033616.jpg","dd2.jpg");
         //removeFiles("20190529083159.jpg","20190529083241.jpg");
         listFile();
     }

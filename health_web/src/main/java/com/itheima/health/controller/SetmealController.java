@@ -5,7 +5,7 @@ import com.itheima.health.constant.MessageConstant;
 import com.itheima.health.entity.Result;
 import com.itheima.health.pojo.Setmeal;
 import com.itheima.health.service.SetmealService;
-import com.itheima.health.utils.QiNiuUtils;
+import com.itheima.health.Utils.QiNiuUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,4 +58,5 @@ public class SetmealController {
         setmealService.add(setmeal,checkgroupIds);
         return new Result(true,MessageConstant.ADD_SETMEAL_SUCCESS);
     }
+
 }
