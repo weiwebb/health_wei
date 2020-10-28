@@ -10,13 +10,6 @@
     <link rel="icon" href="../img/asset-favico.ico">
     <title>预约详情</title>
     <link rel="stylesheet" href="../css/page-health-orderDetail.css" />
-    <script src="../plugins/vue/vue.js"></script>
-    <script src="../plugins/vue/axios-0.18.0.js"></script>
-    <script src="../plugins/healthmobile.js"></script>
-    <script>
-        var id = getUrlParam("id");
-        alert(id);
-    </script>
 </head>
 <body data-spy="scroll" data-target="#myNavbar" data-offset="150">
 <div id="app" class="app">
@@ -30,14 +23,24 @@
     <div class="contentBox">
         <div class="card">
             <div class="project-img">
-                <img :src="'setmeal.img" width="100%" height="100%" />
+                <img src="${setmeal.img}" width="100%" height="100%" />
             </div>
             <div class="project-text">
-                <h4 class="tit">{{setmeal.name}}</h4>
-                <p class="subtit">{{setmeal.remark}}</p>
+                <h4 class="tit">${setmeal.name}</h4>
+                <p class="subtit">${setmeal.remark}</p>
                 <p class="keywords">
-                    <span>{{setmeal.sex == '0' ? '性别不限' : setmeal.sex == '1' ? '男':'女'}}</span>
-                    <span>{{setmeal.age}}</span>
+                    <span>
+                        <#if setmeal.sex=='0'>
+                            性别不限
+                        <#else>
+                            <#if setmeal.sex=='1'>
+                                男
+                            <#else>
+                                女
+                            </#if>
+                        </#if>
+                    </span>
+                    <span>${setmeal.age}</span>
                 </p>
             </div>
         </div>
@@ -54,45 +57,26 @@
                 </div>
                 <div class="table-content">
                     <ul class="table-list">
-                        <li class="table-item" v-for="checkgroup in setmeal.checkGroups">
-                            <div class="item flex2">{{checkgroup.name}}</div>
-                            <div class="item flex3">
-                                <label v-for="checkitem in checkgroup.checkItems">
-                                    {{checkitem.name}}
-                                </label>
-                            </div>
-                            <div class="item flex3">{{checkgroup.remark}}</div>
-                        </li>
+                        <#list setmeal.checkGroups as checkgroup>
+                            <li class="table-item">
+                                <div class="item flex2">${checkgroup.name}</div>
+                                <div class="item flex3">
+                                    <#list checkgroup.checkItems as checkitem>
+                                        <label>
+                                            ${checkitem.name}
+                                        </label>
+                                    </#list>
+                                </div>
+                                <div class="item flex3">${checkgroup.remark}</div>
+                            </li>
+                        </#list>
                     </ul>
                 </div>
                 <div class="box-button">
-                    <a @click="toOrderInfo()" class="order-btn">立即预约</a>
+                    <a href="orderInfo.html?id=${setmeal.id}" class="order-btn">立即预约</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    var vue = new Vue({
-        el:'#app',
-        data:{
-            setmeal:{}
-        },
-        methods:{
-            toOrderInfo(){
-                window.location.href = "orderInfo.html?id=" + id;
-            }
-        },
-        mounted(){
-            //获取套餐详情
-            axios.get("/setmeal/findDetailById.do?id=" + id).then((res) => {
-                if(res.data.flag){
-                    this.setmeal = res.data.data;
-                }else{
-                    alert(res.data.message);
-                }
-            });
-        }
-    });
-</script>
 </body>
