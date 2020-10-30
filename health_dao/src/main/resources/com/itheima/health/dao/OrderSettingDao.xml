@@ -26,4 +26,9 @@
     <update id="editNumberByOrderDate" parameterType="com.itheima.health.pojo.OrderSetting">
         update  t_orderSetting set number= #{number} where orderDate = #{orderDate}
     </update>
+
+    <!--更新已预约人数-->
+    <update id="editReservationsByOrderDate" parameterType="date">
+    update t_ordersetting set reservations = reservations+1 where orderDate = #{orderDate} and number>reservations
+</update>
 </mapper>

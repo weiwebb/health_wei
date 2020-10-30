@@ -13,22 +13,22 @@ import com.aliyuncs.profile.IClientProfile;
  * 短信发送工具类
  */
 public class SMSUtils {
-	public static final String VALIDATE_CODE = "SMS_189616640";//发送短信验证码模板编码  模版CODE
-	public static final String ORDER_NOTICE = "SMS_159771588";//体检预约成功通知
-	private static final String SIGN_NAEM = "黑马程序员";// 短信的签名
-	private static final String PARAMETER_NAME="code";
-	private static final String ACCESS_KEY="LTAI4GEKPyNCoPH43kZH8hZN"; //你的AccessKey ID
-	private static final String SECRET_KEY="GTx8cCTLvE32uLYJCuabaSOY3bz9rr"; //你的AccessKey Secret
+	public static final String VALIDATE_CODE = "SMS_205139798";//发送短信验证码 验证码签名, 改成你的
+	public static final String ORDER_NOTICE = "SMS_205129842";//体检预约成功通知, 通知类的模板（需要通用的签名）
+	private static final String SIGN_NAEM = "itwei短信";// 短信的签名，属于验证码签名, 改成你的
+	private static final String PARAMETER_NAME="code"; // 短信模板内容中的参数名 , 改成你的 看模板内容中的${}
+	private static final String ACCESS_KEY="LTAI4GEzCneJQpPWjrTyduk1"; //你的AccessKey ID , 改成你的
+	private static final String SECRET_KEY="Jhk0w7WoHfC2KdEdtq9JOwY9qeEiI6"; //你的AccessKey Secret , 改成你的
 
 	public static void main(String[] args) throws ClientException {
-		SMSUtils.sendShortMessage(VALIDATE_CODE,"13652431027","666666");
+		SMSUtils.sendShortMessage(VALIDATE_CODE,"13543300177","666666");
 	}
 
 	/**
-	 *
-	 * @param templateCode
-	 * @param phoneNumbers
-	 * @param param
+	 * 发送短信
+	 * @param templateCode 验证码的模板code
+	 * @param phoneNumbers 接收的手机号码
+	 * @param param        验证码
 	 * @throws ClientException
 	 */
 	public static void sendShortMessage(String templateCode,String phoneNumbers,String param) throws ClientException{
@@ -39,8 +39,8 @@ public class SMSUtils {
 		final String product = "Dysmsapi";// 短信API产品名称（短信产品名固定，无需修改）
 		final String domain = "dysmsapi.aliyuncs.com";// 短信API产品域名（接口地址固定，无需修改）
 		// 替换成你的AK
-		final String accessKeyId = "LTAIak3CfAehK7cE";// 你的accessKeyId,参考本文档步骤2
-		final String accessKeySecret = "zsykwhTIFa48f8fFdU06GOKjHWHel4";// 你的accessKeySecret，参考本文档步骤2
+		//final String accessKeyId = "LTAIak3CfAehK7cE";// 你的accessKeyId,参考本文档步骤2
+		//final String accessKeySecret = "zsykwhTIFa48f8fFdU06GOKjHWHel4";// 你的accessKeySecret，参考本文档步骤2
 		// 初始化ascClient,暂时不支持多region（请勿修改）
 		IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", ACCESS_KEY, SECRET_KEY);
 		DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);

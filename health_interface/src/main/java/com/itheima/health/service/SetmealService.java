@@ -53,5 +53,12 @@ public interface SetmealService {
      */
     void update(Setmeal setmeal, Integer[] checkgroupIds);
 
+    /**
+     * 通过id删除
+     * @param id
+     * @throws HealthException
+     */
     void deleteById(Integer id) throws HealthException;
+
+
 }

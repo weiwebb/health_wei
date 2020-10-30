@@ -74,42 +74,54 @@ public class SetmealController {
     }
 
     @PostMapping("/findPage")
-    public Result findPage(@RequestBody QueryPageBean queryPageBean){
+    public Result findPage(@RequestBody QueryPageBean queryPageBean) {
         //掉用业务
         PageResult<Setmeal> pageResult = setmealService.findPage(queryPageBean);
-        return new Result(true,MessageConstant.QUERY_SETMEAL_SUCCESS,pageResult);
+        return new Result(true, MessageConstant.QUERY_SETMEAL_SUCCESS, pageResult);
     }
+
     @GetMapping("findById")
-    public Result findById(int id){
+    public Result findById(int id) {
         //调用业务
         Setmeal setmeal = setmealService.findById(id);
         // 前端要显示图片需要全路径
         // 封装到map中，解决图片路径问题
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("setmeal",setmeal);
-        resultMap.put("domain",QiNiuUtils.DOMAIN);
-        return new Result(true,MessageConstant.QUERY_SETMEAL_SUCCESS,resultMap);
+        resultMap.put("setmeal", setmeal);
+        resultMap.put("domain", QiNiuUtils.DOMAIN);
+        return new Result(true, MessageConstant.QUERY_SETMEAL_SUCCESS, resultMap);
     }
+
     /**
      * 通过id查询选中的检查组ids
      */
     @GetMapping("/findCheckgroupIdsBySetmealId")
-    public Result findCheckgroupIdsBySetmealId(int id){
+    public Result findCheckgroupIdsBySetmealId(int id) {
         List<Integer> checkgroupIds = setmealService.findCheckgroupIdsBySetmealId(id);
-        return new Result(true,MessageConstant.QUERY_CHECKGROUP_SUCCESS,checkgroupIds);
+        return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS, checkgroupIds);
     }
+
     /**
-     * 修改
+     * 更新套餐
      */
     @PostMapping("/update")
-    public Result update(@RequestBody Setmeal setmeal, Integer[] checkgroupIds){
-        setmealService.update(setmeal,checkgroupIds);
-        return new Result(true,MessageConstant.EDIT_SETMEAL_SUCCESS);
+    public Result update(@RequestBody Setmeal setmeal, Integer[] checkgroupIds) {
+        // 调用服务修改
+        setmealService.update(setmeal, checkgroupIds);
+        Jedis jedis = jedisPool.getResource();
+        jedis.sadd("setmeal:static:html", setmeal.getId() + "|1|" + System.currentTimeMillis());
+        jedis.close();
+        return new Result(true, MessageConstant.EDIT_SETMEAL_SUCCESS);
     }
+
     // 删除套餐
-    @RequestMapping(value = "/deleteById")
-    public Result deleteById(Integer id){
+    @PostMapping("/deleteById")
+    public Result deleteById(Integer id) {
         setmealService.deleteById(id);
+        Jedis jedis = jedisPool.getResource();
+// 操作符0代表删除
+        jedis.sadd("setmeal:static:html", id + "|0|" + System.currentTimeMillis());
+        jedis.close();
         return new Result(true, MessageConstant.DELETE_SETMEAL_SUCCESS);
     }
 }
